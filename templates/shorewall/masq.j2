@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+# For information about entries in this file, type "man shorewall-masq"
+################################################################################################################
+#INTERFACE:DEST		SOURCE		ADDRESS		PROTO	PORT(S)	IPSEC	MARK	USER/	SWITCH	ORIGINAL
+#											GROUP		DEST
+
+{% for rule in shorewall_masq %}
+{{ rule.interface | default('-') }} {{ rule.source | default('-') }} {{ rule.address | default('-') }} {{ rule.proto | default('-') }} {{ rule.ports | default('-') }} {{ rule.ipsec | default('-') }} {{ rule.mark | default('-') }} {{ rule.user | default('-') }} {{ rule.switch | default('-') }} {{ rule.original_dest | default('-') }}
+{% endfor %}

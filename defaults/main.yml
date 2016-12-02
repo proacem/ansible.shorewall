@@ -1,0 +1,102 @@
+---
+# defaults file for sbaerlocher.shorewall
+
+shorewall_startup: 1
+shorewall6_startup: 1
+
+shorewall_verbosity: 1
+shorewall6_verbosity: 1
+
+shorewall_log_verbosity: 2
+shorewall6_log_verbosity: 2
+
+shorewall_interfaces:
+  - zone: net
+    interface: eth0
+    options: "tcpflags,logmartians,routefilter,sourceroute=0"
+
+shorewall6_interfaces:
+  - zone: net
+    interface: eth0
+    options: "tcpflags,nosmurfs,sourceroute=0"
+
+shorewall_masq: []
+shorewall6_masq: []
+
+shorewall_hosts: []
+shorewall6_hosts: []
+
+shorewall_params: []
+shorewall6_params: []
+
+shorewall_policies:
+  - source: "$FW"
+    dest: all
+    policy: ACCEPT
+  - source: net
+    dest: all
+    policy: REJECT
+    log_level: info
+  # the following policy must be last
+  - source: all
+    dest: all
+    policy: REJECT
+    log_level: info
+
+shorewall6_policies:
+  - source: "$FW"
+    dest: all
+    policy: ACCEPT
+  - source: net
+    dest: all
+    policy: REJECT
+  - source: all
+    dest: all
+    policy: REJECT
+    log_level: info
+
+shorewall_rules:
+  - section: ALL
+    rules: []
+  - section: ESTABLISHED
+    rules: []
+  - section: RELATED
+    rules: []
+  - section: INVALID
+    rules: []
+  - section: UNTRACKED
+    rules: []
+  - section: NEW
+    rules:
+    - { action: "Invalid(DROP)", source: net, dest: "$FW", proto: tcp }
+    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: ssh }
+    - { action: ACCEPT, source: net, dest: "$FW", proto: icmp, dest_port: echo-request }
+
+shorewall6_rules:
+  - section: ALL
+    rules: []
+  - section: ESTABLISHED
+    rules: []
+  - section: RELATED
+    rules: []
+  - section: INVALID
+    rules: []
+  - section: UNTRACKED
+    rules: []
+  - section: NEW
+    rules:
+    - { action: "Invalid(DROP)", source: net, dest: "$FW", proto: tcp }
+    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: ssh }
+    - { action: ACCEPT, source: net, dest: "$FW", proto: ipv6-icmp, dest_port: echo-request }
+
+shorewall_zones:
+  - zone: fw
+    type: firewall
+  - zone: net
+    type: ipv4
+
+shorewall6_zones:
+  - zone: fw
+    type: firewall
+  - zone: net
+    type: ipv6

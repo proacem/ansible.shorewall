@@ -1,0 +1,20 @@
+---
+# handlers file for sbaerlocher.shorewall
+
+- name: start shorewall
+  service: name={{ shorewall_service_name }} state=started
+
+- name: start shorewall6 
+  service: name={{ shorewall6_service_name }} state=started
+
+- name: enabled shorewall
+  service: name={{ shorewall_service_name }} enabled=yes
+
+- name: enabled shorewall6 
+  service: name={{ shorewall6_service_name }} enabled=yes
+
+- name: restart shorewall
+  service: name={{ shorewall_service_name }} state=restarted
+
+- name: restart shorewall6
+  service: name={{ shorewall6_service_name }} state=restarted
