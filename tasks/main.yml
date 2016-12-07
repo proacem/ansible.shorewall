@@ -12,6 +12,14 @@
     - configuration
     - packages
 
+- name: remove other firewall package
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - shorewall
+    - iptables-service
+
 - name: install shorewall
   package:
     name: "{{ shorewall_package_name }}"
