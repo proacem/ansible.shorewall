@@ -1,5 +1,5 @@
 ---
-# defaults file for sbaerlocher.shorewall
+# defaults file for myatu.shorewall
 
 shorewall_startup: 1
 shorewall6_startup: 1

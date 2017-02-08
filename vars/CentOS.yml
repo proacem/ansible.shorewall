@@ -1,5 +1,5 @@
 ---
-# vars file for sbaerlocher.shorewall
+# vars file for myatu.shorewall
 
 shorewall_package_name: "shorewall"
 shorewall6_package_name: "shorewall6"

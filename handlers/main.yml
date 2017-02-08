@@ -1,5 +1,5 @@
 ---
-# handlers file for sbaerlocher.shorewall
+# handlers file for myatu.shorewall
 
 - name: start shorewall
   service: name={{ shorewall_service_name }} state=started

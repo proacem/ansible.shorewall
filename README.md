@@ -7,7 +7,7 @@ Ansible role which installs and configures shorewall and shorewall6.
 ## Installation
 
 ```
-$ ansible-galaxy install sbaerlocher.shorewall
+$ ansible-galaxy install myatu.shorewall
 ```
 
 ## Requirements
@@ -42,21 +42,23 @@ shorewall_zones:
 ```yml
 - hosts: all
   roles:
-     - sbaerlocher.shorewall
+     - myatu.shorewall
 ```
 
 ## Changelog
 
 ## Author
 
+* [Michael Green](http://myatus.com)
 * [Simon Bärlocher](https://sbaerlocher.ch)
 * Farhad Shahbazi
 * Sascha Biberhofer
  
 ## License
 
-This project is under the MIT License. See the [LICENSE](https://sbaerlo.ch/licence) file for the full license text.
+This project is under the MIT License. See the LICENSE file for the full license text.
 
 ## Copyright
 
-(c) 2016, Simon Bärlocher
+Copyright (c) 2017 Michael Green
+Copyright (c) 2016 Simon Bärlocher
