@@ -1,5 +1,7 @@
 # Ansible Role: Shorewall
 
+[![Build Status](https://travis-ci.org/Myatu/ansible-shorewall.svg?branch=master)](https://travis-ci.org/Myatu/ansible-shorewall)
+
 ## Description
 
 Ansible role which installs and configures shorewall and shorewall6.
