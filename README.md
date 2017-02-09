@@ -9,7 +9,7 @@ Ansible role which installs and configures shorewall and shorewall6.
 ## Installation
 
 ```
-$ ansible-galaxy install myatu.shorewall
+$ ansible-galaxy install Myatu.shorewall
 ```
 
 ## Requirements
@@ -44,7 +44,7 @@ shorewall_zones:
 ```yml
 - hosts: all
   roles:
-     - myatu.shorewall
+     - Myatu.shorewall
 ```
 
 ## Changelog
