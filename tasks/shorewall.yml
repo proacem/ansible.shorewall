@@ -15,36 +15,43 @@
   tags:
     - packages
 
-- name: Generate Shorewall service conf
-  template:
-    dest: /etc/default/shorewall
-    src: default/shorewall.j2
-    owner: root
-    group: root
-    mode: 0640
-  notify: 
-    - restart shorewall
-  tags:
-    - configuration
+- block:
+  - name: Generate Shorewall configuration files
+    template:
+      dest: "/etc/shorewall/{{ item }}"
+      src: "shorewall/{{ item }}.j2"
+      owner: root
+      group: root
+      mode: 0640
+    with_items:
+      - shorewall.conf
+      - params
+      - interfaces
+      - masq
+      - zones
+      - policy
+      - rules
+      - hosts
+    notify:
+      - restart shorewall
+    tags:
+      - configuration
 
-- name: Shorewall configuration files
-  template:
-    dest: "/etc/shorewall/{{ item }}"
-    src: "shorewall/{{ item }}.j2"
-    owner: root
-    group: root
-    mode: 0640
-  with_items:
-    - shorewall.conf
-    - params
-    - interfaces
-    - masq
-    - zones
-    - policy
-    - rules
-    - hosts
-  notify:
-    - restart shorewall
-  tags:
-    - configuration
+  - name: Verify Shorewall configuration
+    command: shorewall check
+    changed_when: False
+    tags:
+      - tests
 
+  - name: Generate Shorewall service configuration
+    template:
+      dest: /etc/default/shorewall
+      src: default/shorewall.j2
+      owner: root
+      group: root
+      mode: 0640
+    notify: 
+      - restart shorewall
+    tags:
+      - configuration
+  when: (shorewall_package_state != "absent")

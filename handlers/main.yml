@@ -2,10 +2,12 @@
 # handlers file for Myatu.shorewall
 
 - name: enable shorewall
-  service: name={{ shorewall_service_name }} enabled=yes
+  service: name={{ shorewall_service_name }} enabled=yes state=started
+  when: (shorewall_package_state != "absent")
 
 - name: enable shorewall6 
-  service: name={{ shorewall6_service_name }} enabled=yes
+  service: name={{ shorewall6_service_name }} enabled=yes state=started
+  when: (shorewall6_package_state != "absent")
 
 - name: restart shorewall
   service: name={{ shorewall_service_name }} state=restarted
