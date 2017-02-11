@@ -1,6 +1,6 @@
 galaxy_info:
   author: Michael Green <myatus@gmail.com>
-  description: Ansible role which installs and configures shorewall and shorewall6.
+  description: Ansible role which installs and configures Shorewall and Shorewall6.
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -15,7 +15,7 @@ galaxy_info:
   # - CC-BY
   license: MIT
 
-  min_ansible_version: 1.2
+  min_ansible_version: 2.0
 
   # Optionally specify the branch Galaxy will use when accessing the GitHub
   # repo for this role. During role install, if no tags are available,
@@ -117,8 +117,8 @@ galaxy_info:
   #  - 9.1
   #  - 9.2
   #  - 9.3
-  #- name: Ubuntu
-  #  versions:
+  - name: Ubuntu
+    versions:
   #  - all
   #  - lucid
   #  - maverick
@@ -131,24 +131,24 @@ galaxy_info:
   #  - trusty
   #  - utopic
   #  - vivid
-  #  - wily
-  #  - xenial
+    - wily
+    - xenial
   - name: Debian
     versions:
-    - all
+  #  - all
   #  - etch
-  #  - jessie
+    - jessie
   #  - lenny
   #  - sid
   #  - squeeze
   #  - stretch
-  #  - wheezy
+    - wheezy
   - name: EL
     versions:
-    - all
+  #  - all
   #  - 5
-  #  - 6
-  #  - 7
+    - 6
+    - 7
   #- name: Windows
   #  versions:
   #  - all
