@@ -1,23 +1,23 @@
 ---
-# defaults file for myatu.shorewall
+# Defaults file for Myatu.shorewall
+
+shorewall_conf: {}
+shorewall6_conf: {}
+
+shorewall_package_state: "present"
+shorewall6_package_state: "{{ shorewall_package_state }}"
 
 shorewall_startup: 1
-shorewall6_startup: 1
-
-shorewall_verbosity: 1
-shorewall6_verbosity: 1
-
-shorewall_log_verbosity: 2
-shorewall6_log_verbosity: 2
+shorewall6_startup: "{{ shorewall_startup }}"
 
 shorewall_interfaces:
   - zone: net
-    interface: eth0
+    interface: "{{ ansible_default_ipv4.interface|default('eth0') }}"
     options: "tcpflags,logmartians,routefilter,sourceroute=0"
 
 shorewall6_interfaces:
   - zone: net
-    interface: eth0
+    interface: "{{ ansible_default_ipv6.interface|default('eth0') }}"
     options: "tcpflags,nosmurfs,sourceroute=0"
 
 shorewall_masq: []

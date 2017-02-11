@@ -1,7 +1,7 @@
 ---
 # tasks file for myatu.shorewall
 
-- name: add OS specific variables
+- name: Add OS specific variables
   include_vars: "{{ item }}"
   with_first_found:
     - "vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
@@ -12,98 +12,13 @@
     - configuration
     - packages
 
-- name: remove other firewall package
+- name: Remove incompatible firewall packages
   package:
     name: "{{ item }}"
     state: absent
-  with_items:
-    - shorewall
-    - iptables-service
+  with_items: shorewall_incompatible_packages
 
-- name: install shorewall
-  package:
-    name: "{{ shorewall_package_name }}"
-    state: latest
-  notify: 
-    - enabled shorewall
-    - start shorewall
-  tags:
-    - packages
+- include: shorewall.yml
 
-- name: shorewall configuration files
-  template:
-    dest: "/etc/shorewall/{{ item }}"
-    src: "shorewall/{{ item }}.j2"
-    owner: root
-    group: root
-    mode: 0640
-  with_items:
-    - shorewall.conf
-    - params
-    - interfaces
-    - masq
-    - zones
-    - policy
-    - rules
-    - hosts
-  notify:
-    - restart shorewall
-  tags:
-    - configuration
-
-- name: generate Shorewall service conf
-  template:
-    dest: /etc/default/shorewall
-    src: default/shorewall.j2
-    owner: root
-    group: root
-    mode: 0640
-  notify: 
-    - restart shorewall
-  tags:
-    - configuration
-
-- block:
-  - name: install shorewall6
-    package:
-      name: "{{ shorewall6_package_name }}"
-      state: latest
-    notify: 
-      - enabled shorewall6
-      - start shorewall6
-    tags:
-      - packages
-
-  - name: shorewall configuration files
-    template:
-      dest: /etc/default/shorewall6
-      src: default/shorewall6.j2
-      owner: root
-      group: root
-      mode: 0640
-    notify:
-      - restart shorewall6
-    tags:
-      - configuration
-
-  - name: shorewall6 configuration files
-    template:
-      dest: "/etc/shorewall6/{{ item }}"
-      src: "shorewall6/{{ item }}.j2"
-      owner: root
-      group: root
-      mode: 0640
-    with_items:
-      - shorewall6.conf
-      - params
-      - interfaces
-      - masq
-      - zones
-      - policy
-      - rules
-      - hosts
-    notify:
-      - restart shorewall6
-    tags:
-      - configuration
+- include: shorewall6.yml
   when: "'scope' in ansible_default_ipv6 and ansible_default_ipv6.scope == 'global'"

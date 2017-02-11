@@ -1,16 +1,10 @@
 ---
-# handlers file for myatu.shorewall
+# handlers file for Myatu.shorewall
 
-- name: start shorewall
-  service: name={{ shorewall_service_name }} state=started
-
-- name: start shorewall6 
-  service: name={{ shorewall6_service_name }} state=started
-
-- name: enabled shorewall
+- name: enable shorewall
   service: name={{ shorewall_service_name }} enabled=yes
 
-- name: enabled shorewall6 
+- name: enable shorewall6 
   service: name={{ shorewall6_service_name }} enabled=yes
 
 - name: restart shorewall

@@ -1,0 +1,49 @@
+---
+# Shorewall6 tasks file for Myatu.shorewall
+
+- name: Gather Shorewall6 configuration variables
+  set_fact:
+    shorewall6_conf: "{{ shorewall6_conf_base|combine(shorewall6_conf) }}"
+
+- name: Install Shorewall6 and dependencies
+  package:
+    name: "{{ item }}"    
+    state: "{{ shorewall6_package_state }}"
+  with_items: shorewall6_packages    
+  notify: 
+    - enable shorewall6
+  tags:
+    - packages
+
+- name: Generate Shorewall6 service conf
+  template:
+    dest: /etc/default/shorewall6
+    src: default/shorewall6.j2
+    owner: root
+    group: root
+    mode: 0640
+  notify:
+    - restart shorewall6
+  tags:
+    - configuration
+
+- name: Shorewall6 configuration files
+  template:
+    dest: "/etc/shorewall6/{{ item }}"
+    src: "shorewall6/{{ item }}.j2"
+    owner: root
+    group: root
+    mode: 0640
+  with_items:
+    - shorewall6.conf
+    - params
+    - interfaces
+    - masq
+    - zones
+    - policy
+    - rules
+    - hosts
+  notify:
+    - restart shorewall6
+  tags:
+    - configuration
