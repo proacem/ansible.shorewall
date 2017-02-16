@@ -1,6 +1,8 @@
 ---
 # Defaults file for Myatu.shorewall
 
+shorewall_include_ssh_rule: True
+
 shorewall_conf: {}
 shorewall6_conf: {}
 
@@ -69,7 +71,7 @@ shorewall_rules:
   - section: NEW
     rules:
     - { action: "Invalid(DROP)", source: net, dest: "$FW", proto: tcp }
-    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: ssh }
+    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: "{{ ansible_ssh_port | default('ssh', True) }}" }
     - { action: ACCEPT, source: net, dest: "$FW", proto: icmp, dest_port: echo-request }
 
 shorewall6_rules:
@@ -86,7 +88,7 @@ shorewall6_rules:
   - section: NEW
     rules:
     - { action: "Invalid(DROP)", source: net, dest: "$FW", proto: tcp }
-    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: ssh }
+    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: "{{ ansible_ssh_port | default('ssh', True) }}" }
     - { action: ACCEPT, source: net, dest: "$FW", proto: ipv6-icmp, dest_port: echo-request }
 
 shorewall_zones:
