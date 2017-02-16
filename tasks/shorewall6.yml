@@ -16,7 +16,7 @@
     - packages
 
 - block:
-  - name: Shorewall6 configuration files
+  - name: Generate Shorewall6 configuration files
     template:
       dest: "/etc/shorewall6/{{ item }}"
       src: "shorewall6/{{ item }}.j2"
@@ -55,3 +55,4 @@
     tags:
       - configuration
   when: (shorewall6_package_state != "absent")
+  

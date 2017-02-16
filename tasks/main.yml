@@ -17,6 +17,7 @@
     name: "{{ item }}"
     state: absent
   with_items: shorewall_incompatible_packages
+  when: (shorewall_package_state != "absent")
 
 - include: shorewall.yml
 
