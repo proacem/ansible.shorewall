@@ -9,7 +9,7 @@
   package:
     name: "{{ item }}"    
     state: "{{ shorewall6_package_state }}"
-  with_items: shorewall6_packages    
+  with_items: "{{ shorewall6_packages }}"
   notify: 
     - enable shorewall6
   tags:
