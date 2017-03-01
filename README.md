@@ -16,6 +16,13 @@ $ ansible-galaxy install Myatu.shorewall
 
 Ansible version 2.0 or better.
 
+## Role Handlers
+
+Name | Description
+--- | ---
+`enable shorewall`, `enable shorewall6` | Enables and starts Shorewall / Shorewall 6
+`restart shorewall`, `start shorewall6` | Restarts Shorewall / Shorewall6
+
 ## Role Variables
 
 *Note:* The Shorewall (IPv4) variables are prefixed by `shorewall_`, whereas the Shorewall6 (IPv6) variables are prefixed by `shorewall6_`.
@@ -135,6 +142,10 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 ```
 
 ## Changelog
+
+### Master Branch
+
+* *Changed:* The generated `shorewall_rules` now take into account the `?` prefix that was introduced at Shorewall version 4.6, and therefore will omit it if the installed Shorewall version is older.
 
 ### v1.0
 
