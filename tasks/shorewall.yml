@@ -3,7 +3,7 @@
 
 - name: Gather Shorewall configuration variables
   set_fact:
-    shorewall_conf: "{{ shorewall_conf_base|combine(shorewall_conf) }}"
+    shorewall_conf: "{{ shorewall_conf_base|combine(shorewall_conf) }}"   
 
 - name: Install Shorewall and dependencies
   package:
@@ -16,6 +16,15 @@
     - packages
 
 - block:
+  - name: Obtain Shorewall version
+    command: shorewall version
+    register: shorewall_version_result
+    changed_when: False
+
+  - name: Convert Shorewall version var
+    set_fact:
+      shorewall_version: "{{ '.'.join( (shorewall_version_result.stdout.split('.') | default([0,0]))[:2] ) }}"
+
   - name: Generate Shorewall configuration files
     template:
       dest: "/etc/shorewall/{{ item }}"

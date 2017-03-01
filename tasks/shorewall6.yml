@@ -16,6 +16,15 @@
     - packages
 
 - block:
+  - name: Obtain Shorewall6 version
+    command: shorewall6 version
+    register: shorewall6_version_result
+    changed_when: False
+
+  - name: Convert Shorewall6 version var
+    set_fact:
+      shorewall6_version: "{{ '.'.join( (shorewall6_version_result.stdout.split('.') | default([0,0]))[:2] ) }}"
+
   - name: Generate Shorewall6 configuration files
     template:
       dest: "/etc/shorewall6/{{ item }}"
