@@ -21,7 +21,7 @@ Ansible version 2.0 or better.
 Name | Description
 --- | ---
 `enable shorewall`, `enable shorewall6` | Enables and starts Shorewall / Shorewall 6
-`restart shorewall`, `start shorewall6` | Restarts Shorewall / Shorewall6
+`restart shorewall`, `restart shorewall6` | Restarts Shorewall / Shorewall6
 
 ## Role Variables
 
