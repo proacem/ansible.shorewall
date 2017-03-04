@@ -16,7 +16,7 @@
   package:
     name: "{{ item }}"
     state: absent
-  with_items: "{{ shorewall_incompatible_packages|default({}) }}"
+  with_items: "{{ shorewall_incompatible_packages|default([]) }}"
   when: (shorewall_package_state != "absent")
 
 - include: shorewall.yml
