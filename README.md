@@ -35,7 +35,7 @@ shorewall_conf | *this variable uses standard option / value pairs*
 shorewall_interfaces | `zone`, `interface`, `options`
 shorewall_zones | `zone`, `type`, `options`, `options_in`, `options_out`
 shorewall_policies | `source`, `dest`, `policy`, `log_level`, `burst_limit`, `conn_limit`
-shorewall_rules | **sections**: `section`, **rules**: `rule`.  For each **rule**: `action`, `source`, `dest`, `proto`, `dest_port`, `source_port`, `original_dest`, `rate_limit`, `user_group`, `mark`, `connlimit`, `time`, `headers`, `switch`, `helper`
+shorewall_rules | **sections**: `section`, **rules**: `rule`.  For each **rule**: `action`, `source`, `dest`, `proto`, `dest_port`, `source_port`, `original_dest`, `rate_limit`, `user_group`, `mark`, `connlimit`, `time`, `headers`, `switch`, `helper`, `when`
 shorewall_masq | `interface`, `source`, `address`, `proto`, `ports`, `ipsec`, `mark`, `user`, `switch`, `original_dest`
 shorewall_hosts | `zone`, `hosts`, `options`
 shorewall_params | `name`, `value`
@@ -110,7 +110,11 @@ Specify exceptions to policies, including DNAT and REDIRECT in the `/etc/shorewa
 
 ***WARNING***: Please be sure to include a rule for SSH on the correct port, to avoid locking Ansible - and yourself - out from the remote host.
 
-#### Example
+#### Using the `when` conditional
+
+An option specific to this role variable. and not part of Shorewall, is the `when` conditional. This allows a rule to be included only if the condition evaluates to True.
+
+#### Examples
 
 ```yaml
 shorewall_rules:
@@ -120,6 +124,26 @@ shorewall_rules:
     - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: ssh }
     - { action: ACCEPT, source: net, dest: "$FW", proto: icmp, dest_port: echo-request }
 ```
+
+Using the `when` conditional:
+
+```yaml
+has_webserver: True
+
+# And in a task:
+#- name: Disable webserver rule
+#  set_fact:
+#    has_webserver: False
+
+shorewall_rules:
+  - section: NEW
+    rules:
+    - { action: "Invalid(DROP)", source: net, dest: "$FW", proto: tcp }
+    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: ssh }
+    - { action: "HTTP(ACCEPT)", source: net, dest: "$FW", when: "{{ has_webserver }}" }
+
+```
+
 
 ### shorewall_masq - Masquerade/SNAT
 
@@ -145,7 +169,8 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 
 ### Master Branch
 
-* *Changed:* The generated `shorewall_rules` now take into account the `?` prefix that was introduced at Shorewall version 4.6, and therefore will omit it if the installed Shorewall version is older.
+- Added: The `shorewall_rules` has an added option `when` for each rule, which acts similar to Ansible's `when` statement and allows rules to be conditional.
+- *Changed:* The generated `shorewall_rules` will now take into account the `?` prefix in sections (i.e. `?ESTABLISHED`), which was introduced at Shorewall version 4.6. If the Shorewall version installed is older than 4.6, this prefix will be omitted to avoid errors.
 
 ### v1.0
 

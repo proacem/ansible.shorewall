@@ -1,8 +1,6 @@
 ---
 # Defaults file for Myatu.shorewall
 
-shorewall_include_ssh_rule: True
-
 shorewall_conf: {}
 shorewall6_conf: {}
 
