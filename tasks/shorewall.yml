@@ -23,7 +23,7 @@
 
   - name: Convert Shorewall version var
     set_fact:
-      shorewall_version: "{{ '.'.join( (shorewall_version_result.stdout.split('.') | default([0,0]))[:2] ) }}"
+      shorewall_version: "{{ '.'.join( shorewall_version_result.get('stdout', '0.0').split('.')[:2] ) }}"
 
   - name: Generate Shorewall configuration files
     template:

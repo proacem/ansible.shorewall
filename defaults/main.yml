@@ -14,12 +14,12 @@ shorewall6_startup: "{{ shorewall_startup }}"
 
 shorewall_interfaces:
   - zone: net
-    interface: "{{ ansible_default_ipv4.interface|default('eth0') }}"
+    interface: "{{ ansible_default_ipv4.get('interface', 'eth0') }}"
     options: "tcpflags,logmartians,routefilter,sourceroute=0"
 
 shorewall6_interfaces:
   - zone: net
-    interface: "{{ ansible_default_ipv6.interface|default('eth0') }}"
+    interface: "{{ ansible_default_ipv6.get('interface', 'eth0') }}"
     options: "tcpflags,nosmurfs,sourceroute=0"
 
 shorewall_masq: []
