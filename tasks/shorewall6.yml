@@ -41,6 +41,7 @@
       - policy
       - rules
       - hosts
+      - tunnels
     notify:
       - restart shorewall6
     tags:

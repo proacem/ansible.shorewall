@@ -29,6 +29,9 @@ shorewall6_hosts: []
 shorewall_params: []
 shorewall6_params: []
 
+shorewall_tunnels: []
+shorewall6_tunnels: []
+
 shorewall_policies:
   - source: "$FW"
     dest: all
