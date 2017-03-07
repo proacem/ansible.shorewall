@@ -180,7 +180,7 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 
 ## Changelog
 
-### Master Branch
+### v1.0.3
 
 - Added: The `shorewall_rules` has an added option `when` for each rule, which acts similar to Ansible's `when` statement and allows rules to be conditional.
 - Added: role variable `shorewall_tunnels` for use with VPNs.
