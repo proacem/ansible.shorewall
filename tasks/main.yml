@@ -17,14 +17,19 @@
     name: "{{ item }}"
     state: absent
   with_items:
-    - shorewall
     - iptables-service
+
+- name: "remove other firewall package if shorewall != {{ shorewall_package_name}}"
+  package:
+    name: "shorewall"
+    state: absent
+  when: shorewall_package_name != "shorewall"
 
 - name: install shorewall
   package:
     name: "{{ shorewall_package_name }}"
     state: latest
-  notify: 
+  notify:
     - enabled shorewall
     - start shorewall
   tags:
@@ -58,7 +63,7 @@
     owner: root
     group: root
     mode: 0640
-  notify: 
+  notify:
     - restart shorewall
   tags:
     - configuration
@@ -68,7 +73,7 @@
     package:
       name: "{{ shorewall6_package_name }}"
       state: latest
-    notify: 
+    notify:
       - enabled shorewall6
       - start shorewall6
     tags:
