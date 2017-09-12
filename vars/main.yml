@@ -1,5 +1,5 @@
 ---
-# Base vars file for Myatu.shorewall
+# tasks file for sbaerlocher.shorewall
 
 shorewall_conf_base: 
   ###############################################################################

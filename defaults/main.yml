@@ -1,5 +1,5 @@
 ---
-# Defaults file for Myatu.shorewall
+# Defaults file for sbaerlocher.shorewall
 
 shorewall_conf: {}
 shorewall6_conf: {}

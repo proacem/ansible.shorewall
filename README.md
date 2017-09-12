@@ -1,6 +1,6 @@
 # Ansible Role: Shorewall
 
-[![Build Status](https://travis-ci.org/Myatu/ansible-shorewall.svg?branch=master)](https://travis-ci.org/Myatu/ansible-shorewall)
+[![Build Status](https://travis-ci.org/sbaerlocher/ansible.shorewall.svg?branch=master)](https://travis-ci.org/sbaerlocher/ansible.shorewall)
 
 ## Description
 
@@ -9,7 +9,7 @@ Ansible role which installs and configures [Shorewall](http://shorewall.org/) an
 ## Installation
 
 ```
-$ ansible-galaxy install Myatu.shorewall
+$ ansible-galaxy install sbaerlocher.shorewall
 ```
 
 ## Requirements
@@ -175,7 +175,7 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 ```yml
 - hosts: all
   roles:
-     - Myatu.shorewall
+     - sbaerlocher.shorewall
 ```
 
 ## Changelog
@@ -194,22 +194,18 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 - *Changed:* The default for `shorewall_interface` now detects the default network interface rather than fixed at `eth0` (though `eth0` is still a fall-back default);
 - **Removed:** role variables: `shorewall_verbosity`, `shorewall_log_verbosity`.  Use the `shorewall_conf` role variable to configure these instead.
 
-
-
-
 ## Author
 
-* [Michael Green](http://myatus.com)
 * [Simon Bärlocher](https://sbaerlocher.ch)
+* [Michael Green](http://myatus.com)
 * Farhad Shahbazi
 * Sascha Biberhofer
  
 ## License
 
-This project is under the MIT License. See the LICENSE file for the full license text.
+This project is under the MIT License. See the [LICENSE](https://sbaerlo.ch/licence) file for the full license text.
 
 ## Copyright
 
-- Copyright (c) 2017 Michael Green
-- Copyright (c) 2016 Simon Bärlocher
+- Copyright (c) 2017 Simon Bärlocher
 

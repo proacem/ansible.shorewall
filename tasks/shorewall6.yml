@@ -1,5 +1,5 @@
 ---
-# Shorewall6 tasks file for Myatu.shorewall
+# tasks file for sbaerlocher.shorewall
 
 - name: Gather Shorewall6 configuration variables
   set_fact:

@@ -1,0 +1,25 @@
+---
+# tasks file for sbaerlocher.shorewall
+
+- name: Add OS specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "vars/{{ ansible_distribution }}.yml"
+    - "vars/{{ ansible_os_family }}.yml"
+    - "vars/defaults.yml"
+  tags:
+    - configuration
+    - packages
+
+- name: Remove incompatible firewall packages
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ shorewall_incompatible_packages|default([]) }}"
+  when: (shorewall_package_state != "absent")
+
+- include: shorewall.yml
+
+- include: shorewall6.yml
+  when: "'scope' in ansible_default_ipv6 and ansible_default_ipv6.scope == 'global'"
