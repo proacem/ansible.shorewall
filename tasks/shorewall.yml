@@ -1,0 +1,68 @@
+---
+# Shorewall tasks file for Myatu.shorewall
+
+- name: Gather Shorewall configuration variables
+  set_fact:
+    shorewall_conf: "{{ shorewall_conf_base|combine(shorewall_conf) }}"   
+
+- name: Install Shorewall and dependencies
+  package:
+    name: "{{ item }}"
+    state: "{{ shorewall_package_state }}"
+  with_items: "{{ shorewall_packages }}"
+  notify: 
+    - enable shorewall
+  tags:
+    - packages
+
+- block:
+  - name: Obtain Shorewall version
+    command: shorewall version
+    register: shorewall_version_result
+    changed_when: False
+
+  - name: Convert Shorewall version var
+    set_fact:
+      shorewall_version: "{{ '.'.join( shorewall_version_result.get('stdout', '0.0').split('.')[:2] ) }}"
+
+  - name: Generate Shorewall configuration files
+    template:
+      dest: "/etc/shorewall/{{ item }}"
+      src: "shorewall/{{ item }}.j2"
+      owner: root
+      group: root
+      mode: 0640
+    with_items:
+      - shorewall.conf
+      - params
+      - interfaces
+      - masq
+      - zones
+      - policy
+      - rules
+      - hosts
+      - tunnels
+    notify:
+      - restart shorewall
+    tags:
+      - configuration
+
+  - name: Verify Shorewall configuration
+    command: shorewall check
+    changed_when: False
+    tags:
+      - tests
+
+  - name: Generate Shorewall service configuration
+    template:
+      dest: /etc/default/shorewall
+      src: default/shorewall.j2
+      owner: root
+      group: root
+      mode: 0640
+    notify: 
+      - restart shorewall
+    tags:
+      - configuration
+  when: (shorewall_package_state != "absent")
+  

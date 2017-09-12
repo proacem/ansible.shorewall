@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+# Shorewall version 4 - Tunnels File
+#
+# For information about entries in this file, type "man shorewall6-tunnels"
+#
+# The manpage is also online at
+# http://shorewall.net/manpages6/shorewall6-tunnels.html
+#
+###############################################################################
+#TYPE			ZONE	GATEWAY(S)			GATEWAY
+#								ZONE(S)
+
+{% for i in shorewall6_tunnels %}
+{{ i.type }} {{ i.zone }} {{ i.gateway }} {{ i.gateway_zone | default('') }}
+{% endfor %}

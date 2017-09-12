@@ -1,23 +1,23 @@
 ---
-# defaults file for sbaerlocher.shorewall
+# Defaults file for Myatu.shorewall
+
+shorewall_conf: {}
+shorewall6_conf: {}
+
+shorewall_package_state: "present"
+shorewall6_package_state: "{{ shorewall_package_state }}"
 
 shorewall_startup: 1
-shorewall6_startup: 1
-
-shorewall_verbosity: 1
-shorewall6_verbosity: 1
-
-shorewall_log_verbosity: 2
-shorewall6_log_verbosity: 2
+shorewall6_startup: "{{ shorewall_startup }}"
 
 shorewall_interfaces:
   - zone: net
-    interface: eth0
+    interface: "{{ ansible_default_ipv4.get('interface', 'eth0') }}"
     options: "tcpflags,logmartians,routefilter,sourceroute=0"
 
 shorewall6_interfaces:
   - zone: net
-    interface: eth0
+    interface: "{{ ansible_default_ipv6.get('interface', 'eth0') }}"
     options: "tcpflags,nosmurfs,sourceroute=0"
 
 shorewall_masq: []
@@ -28,6 +28,9 @@ shorewall6_hosts: []
 
 shorewall_params: []
 shorewall6_params: []
+
+shorewall_tunnels: []
+shorewall6_tunnels: []
 
 shorewall_policies:
   - source: "$FW"
@@ -69,7 +72,7 @@ shorewall_rules:
   - section: NEW
     rules:
     - { action: "Invalid(DROP)", source: net, dest: "$FW", proto: tcp }
-    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: ssh }
+    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: "{{ ansible_ssh_port | default('ssh', True) }}" }
     - { action: ACCEPT, source: net, dest: "$FW", proto: icmp, dest_port: echo-request }
 
 shorewall6_rules:
@@ -86,7 +89,7 @@ shorewall6_rules:
   - section: NEW
     rules:
     - { action: "Invalid(DROP)", source: net, dest: "$FW", proto: tcp }
-    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: ssh }
+    - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: "{{ ansible_ssh_port | default('ssh', True) }}" }
     - { action: ACCEPT, source: net, dest: "$FW", proto: ipv6-icmp, dest_port: echo-request }
 
 shorewall_zones:

@@ -1,7 +1,15 @@
 ---
-# vars file for sbaerlocher.shorewall
+# Debian vars file for Myatu.shorewall
 
-shorewall_package_name: "shorewall"
-shorewall6_package_name: "shorewall6"
+shorewall_incompatible_packages: 
+  - "iptables-service"
+
+shorewall_packages:
+  - "shorewall"
+  - "ipset"
+
+shorewall6_packages:
+  - "shorewall6"
+
 shorewall_service_name: "shorewall"
 shorewall6_service_name: "shorewall6"

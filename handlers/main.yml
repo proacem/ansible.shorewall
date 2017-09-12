@@ -1,17 +1,13 @@
 ---
-# handlers file for sbaerlocher.shorewall
+# handlers file for Myatu.shorewall
 
-- name: start shorewall
-  service: name={{ shorewall_service_name }} state=started
+- name: enable shorewall
+  service: name={{ shorewall_service_name }} enabled=yes state=started
+  when: (shorewall_package_state != "absent")
 
-- name: start shorewall6 
-  service: name={{ shorewall6_service_name }} state=started
-
-- name: enabled shorewall
-  service: name={{ shorewall_service_name }} enabled=yes
-
-- name: enabled shorewall6 
-  service: name={{ shorewall6_service_name }} enabled=yes
+- name: enable shorewall6 
+  service: name={{ shorewall6_service_name }} enabled=yes state=started
+  when: (shorewall6_package_state != "absent")
 
 - name: restart shorewall
   service: name={{ shorewall_service_name }} state=restarted
