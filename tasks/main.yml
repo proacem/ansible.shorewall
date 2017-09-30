@@ -19,7 +19,7 @@
   with_items: "{{ shorewall_incompatible_packages|default([]) }}"
   when: (shorewall_package_state != "absent")
 
-- include: shorewall.yml
+- include_tasks: shorewall.yml
 
-- include: shorewall6.yml
+- include_tasks: shorewall6.yml
   when: "'scope' in ansible_default_ipv6 and ansible_default_ipv6.scope == 'global'"

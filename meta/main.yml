@@ -4,7 +4,7 @@ galaxy_info:
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
-  # issue_tracker_url: http://example.com/issue/tracker
+  issue_tracker_url: https://github.com/sbaerlocher/ansible.shorewall/issues
 
   # Some suggested licenses:
   # - BSD (default)
@@ -15,7 +15,7 @@ galaxy_info:
   # - CC-BY
   license: MIT
 
-  min_ansible_version: 2.0
+  min_ansible_version: 2.4
 
   # Optionally specify the branch Galaxy will use when accessing the GitHub
   # repo for this role. During role install, if no tags are available,
@@ -23,7 +23,7 @@ galaxy_info:
   # this branch. If travis integration is cofigured, only notification for this
   # branch will be accepted. Otherwise, in all cases, the repo's default branch
   # (usually master) will be used.
-  github_branch: stable
+  github_branch: master
 
   #
   # Below are all platforms currently available. Just uncomment
