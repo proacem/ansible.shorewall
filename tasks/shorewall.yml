@@ -6,6 +6,7 @@
     shorewall_conf: "{{ shorewall_conf_base|combine(shorewall_conf) }}"   
 
 - name: Install Shorewall and dependencies
+  become: true
   package:
     name: "{{ item }}"
     state: "{{ shorewall_package_state }}"
@@ -26,6 +27,7 @@
       shorewall_version: "{{ '.'.join( shorewall_version_result.get('stdout', '0.0').split('.')[:2] ) }}"
 
   - name: Generate Shorewall configuration files
+    become: true
     template:
       dest: "/etc/shorewall/{{ item }}"
       src: "shorewall/{{ item }}.j2"
@@ -48,12 +50,14 @@
       - configuration
 
   - name: Verify Shorewall configuration
+    become: true
     command: shorewall check
     changed_when: False
     tags:
       - tests
 
   - name: Generate Shorewall service configuration
+    become: true
     template:
       dest: /etc/default/shorewall
       src: default/shorewall.j2

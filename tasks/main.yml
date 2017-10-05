@@ -13,6 +13,7 @@
     - packages
 
 - name: Remove incompatible firewall packages
+  become: true
   package:
     name: "{{ item }}"
     state: absent
