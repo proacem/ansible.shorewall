@@ -4,6 +4,9 @@
 - name: Gather Shorewall configuration variables
   set_fact:
     shorewall_conf: "{{ shorewall_conf_base|combine(shorewall_conf) }}"   
+  tags:
+    - configuration
+    - packages
 
 - name: Install Shorewall and dependencies
   become: true
@@ -46,8 +49,6 @@
       - tunnels
     notify:
       - restart shorewall
-    tags:
-      - configuration
 
   - name: Verify Shorewall configuration
     become: true
@@ -66,7 +67,7 @@
       mode: 0640
     notify: 
       - restart shorewall
-    tags:
-      - configuration
+
   when: (shorewall_package_state != "absent")
-  
+  tags:
+    - configuration
