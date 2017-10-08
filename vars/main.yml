@@ -71,6 +71,7 @@ shorewall_conf_base:
   ###############################################################################
   #     F I R E W A L L   O P T I O N S
   ###############################################################################
+  docker: "Yes"
   accounting: "Yes"
   accounting_table: "filter"
   add_ip_aliases: "No"
