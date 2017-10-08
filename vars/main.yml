@@ -71,7 +71,7 @@ shorewall_conf_base:
   ###############################################################################
   #     F I R E W A L L   O P T I O N S
   ###############################################################################
-  docker: "keep"
+  docker: "No"
   accounting: "Yes"
   accounting_table: "filter"
   add_ip_aliases: "No"
@@ -226,7 +226,7 @@ shorewall6_conf_base:
   ###############################################################################
   #     F I R E W A L L   O P T I O N S
   ###############################################################################
-  docker: "keep"
+  docker: "No"
   accounting: "Yes"
   accounting_table: "filter"
   adminisabsentminded: "Yes"
