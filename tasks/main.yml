@@ -13,13 +13,22 @@
     - packages
 
 - name: Remove incompatible firewall packages
+  become: true
   package:
     name: "{{ item }}"
     state: absent
   with_items: "{{ shorewall_incompatible_packages|default([]) }}"
   when: (shorewall_package_state != "absent")
+  tags:
+    - packages
 
 - include_tasks: shorewall.yml
+  tags:
+    - configuration
+    - packages
 
 - include_tasks: shorewall6.yml
   when: "'scope' in ansible_default_ipv6 and ansible_default_ipv6.scope == 'global'"
+  tags:
+    - configuration
+    - packages
