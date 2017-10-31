@@ -180,6 +180,10 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 
 ## Changelog
 
+### v1.0.5
+
+- rename role name
+
 ### v1.0.4
 
 - add support for docker
