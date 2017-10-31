@@ -1,6 +1,6 @@
 # Ansible Role: Shorewall
 
-[![Build Status](https://travis-ci.org/sbaerlocher/ansible.shorewall.svg?branch=master)](https://travis-ci.org/sbaerlocher/ansible.shorewall)
+[![Build Status](https://travis-ci.org/arillso/ansible.shorewall.svg?branch=master)](https://travis-ci.org/arillso/ansible.shorewall)
 
 ## Description
 
@@ -9,7 +9,7 @@ Ansible role which installs and configures [Shorewall](http://shorewall.org/) an
 ## Installation
 
 ```
-$ ansible-galaxy install sbaerlocher.shorewall
+$ ansible-galaxy install arillso.shorewall
 ```
 
 ## Requirements
@@ -175,7 +175,7 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 ```yml
 - hosts: all
   roles:
-     - sbaerlocher.shorewall
+     - arillso.shorewall
 ```
 
 ## Changelog

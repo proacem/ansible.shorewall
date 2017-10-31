@@ -1,5 +1,5 @@
 ---
-# Defaults file for sbaerlocher.shorewall
+# Defaults file for arillso.shorewall
 
 shorewall_conf: {}
 shorewall6_conf: {}
