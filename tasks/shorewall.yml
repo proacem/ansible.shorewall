@@ -3,7 +3,7 @@
 
 - name: Gather Shorewall configuration variables
   set_fact:
-    shorewall_conf: "{{ shorewall_conf_base|combine(shorewall_conf) }}"   
+    shorewall_conf: "{{ shorewall_conf_base|combine(shorewall_conf) }}"
   tags:
     - configuration
     - packages
@@ -14,59 +14,59 @@
     name: "{{ item }}"
     state: "{{ shorewall_package_state }}"
   with_items: "{{ shorewall_packages }}"
-  notify: 
+  notify:
     - enable shorewall
   tags:
     - packages
 
 - block:
-  - name: Obtain Shorewall version
-    command: shorewall version
-    register: shorewall_version_result
-    changed_when: False
+    - name: Obtain Shorewall version
+      command: shorewall version
+      register: shorewall_version_result
+      changed_when: False
 
-  - name: Convert Shorewall version var
-    set_fact:
-      shorewall_version: "{{ '.'.join( shorewall_version_result.get('stdout', '0.0').split('.')[:2] ) }}"
+    - name: Convert Shorewall version var
+      set_fact:
+        shorewall_version: "{{ '.'.join( shorewall_version_result.get('stdout', '0.0').split('.')[:2] ) }}"
 
-  - name: Generate Shorewall configuration files
-    become: true
-    template:
-      dest: "/etc/shorewall/{{ item }}"
-      src: "shorewall/{{ item }}.j2"
-      owner: root
-      group: root
-      mode: 0640
-    with_items:
-      - shorewall.conf
-      - params
-      - interfaces
-      - masq
-      - zones
-      - policy
-      - rules
-      - hosts
-      - tunnels
-    notify:
-      - restart shorewall
+    - name: Generate Shorewall configuration files
+      become: true
+      template:
+        dest: "/etc/shorewall/{{ item }}"
+        src: "shorewall/{{ item }}.j2"
+        owner: root
+        group: root
+        mode: 0640
+      with_items:
+        - shorewall.conf
+        - params
+        - interfaces
+        - masq
+        - zones
+        - policy
+        - rules
+        - hosts
+        - tunnels
+      notify:
+        - restart shorewall
 
-  - name: Verify Shorewall configuration
-    become: true
-    command: shorewall check
-    changed_when: False
-    tags:
-      - tests
+    - name: Verify Shorewall configuration
+      become: true
+      command: shorewall check
+      changed_when: False
+      tags:
+        - tests
 
-  - name: Generate Shorewall service configuration
-    become: true
-    template:
-      dest: /etc/default/shorewall
-      src: default/shorewall.j2
-      owner: root
-      group: root
-      mode: 0640
-    notify: 
-      - restart shorewall
+    - name: Generate Shorewall service configuration
+      become: true
+      template:
+        dest: /etc/default/shorewall
+        src: default/shorewall.j2
+        owner: root
+        group: root
+        mode: 0640
+      notify:
+        - restart shorewall
 
   when: (shorewall_package_state != "absent")
   tags:

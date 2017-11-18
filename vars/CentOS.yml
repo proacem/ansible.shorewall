@@ -1,10 +1,10 @@
 ---
 # tasks file for arillso.shorewall
 
-shorewall_incompatible_packages: 
+shorewall_incompatible_packages:
   - "iptables-service"
 
-shorewall_packages: 
+shorewall_packages:
   - "shorewall"
   - "ipset"
 

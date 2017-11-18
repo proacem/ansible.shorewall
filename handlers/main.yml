@@ -6,7 +6,7 @@
   service: name={{ shorewall_service_name }} enabled=yes state=started
   when: (shorewall_package_state != "absent")
 
-- name: enable shorewall6 
+- name: enable shorewall6
   become: true
   service: name={{ shorewall6_service_name }} enabled=yes state=started
   when: (shorewall6_package_state != "absent")
