@@ -1,7 +1,7 @@
 ---
 # tasks file for arillso.shorewall
 
-shorewall_conf_base: 
+shorewall_conf_base:
   ###############################################################################
   #                      S T A R T U P   E N A B L E D
   ###############################################################################
@@ -155,7 +155,6 @@ shorewall_conf_base:
   provider_offset: ""
   mask_bits: ""
   zone_bits: "0"
-
 
 
 shorewall6_conf_base:

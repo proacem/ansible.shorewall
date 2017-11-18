@@ -11,64 +11,63 @@
 - name: Install Shorewall6 and dependencies
   become: true
   package:
-    name: "{{ item }}"    
+    name: "{{ item }}"
     state: "{{ shorewall6_package_state }}"
   with_items: "{{ shorewall6_packages }}"
-  notify: 
+  notify:
     - enable shorewall6
   tags:
     - packages
 
 - block:
-  - name: Obtain Shorewall6 version
-    command: shorewall6 version
-    register: shorewall6_version_result
-    changed_when: False
+    - name: Obtain Shorewall6 version
+      command: shorewall6 version
+      register: shorewall6_version_result
+      changed_when: False
 
-  - name: Convert Shorewall6 version var
-    set_fact:
-      shorewall6_version: "{{ '.'.join( shorewall6_version_result.get('stdout', '0.0').split('.')[:2] ) }}"
+    - name: Convert Shorewall6 version var
+      set_fact:
+        shorewall6_version: "{{ '.'.join( shorewall6_version_result.get('stdout', '0.0').split('.')[:2] ) }}"
 
-  - name: Generate Shorewall6 configuration files
-    become: true
-    template:
-      dest: "/etc/shorewall6/{{ item }}"
-      src: "shorewall6/{{ item }}.j2"
-      owner: root
-      group: root
-      mode: 0640
-    with_items:
-      - shorewall6.conf
-      - params
-      - interfaces
-      - masq
-      - zones
-      - policy
-      - rules
-      - hosts
-      - tunnels
-    notify:
-      - restart shorewall6
+    - name: Generate Shorewall6 configuration files
+      become: true
+      template:
+        dest: "/etc/shorewall6/{{ item }}"
+        src: "shorewall6/{{ item }}.j2"
+        owner: root
+        group: root
+        mode: 0640
+      with_items:
+        - shorewall6.conf
+        - params
+        - interfaces
+        - masq
+        - zones
+        - policy
+        - rules
+        - hosts
+        - tunnels
+      notify:
+        - restart shorewall6
 
-  - name: Verify Shorewall6 configuration
-    become: true
-    command: shorewall6 check
-    changed_when: False
-    tags:
-      - tests
+    - name: Verify Shorewall6 configuration
+      become: true
+      command: shorewall6 check
+      changed_when: False
+      tags:
+        - tests
 
-  - name: Generate Shorewall6 service configuration
-    become: true
-    template:
-      dest: /etc/default/shorewall6
-      src: default/shorewall6.j2
-      owner: root
-      group: root
-      mode: 0640
-    notify:
-      - restart shorewall6
+    - name: Generate Shorewall6 service configuration
+      become: true
+      template:
+        dest: /etc/default/shorewall6
+        src: default/shorewall6.j2
+        owner: root
+        group: root
+        mode: 0640
+      notify:
+        - restart shorewall6
 
   when: (shorewall6_package_state != "absent")
   tags:
     - configuration
-  
