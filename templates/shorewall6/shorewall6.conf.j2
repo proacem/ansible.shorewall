@@ -9,6 +9,6 @@
 #  http://www.shorewall.net/manpages6/shorewall6.conf.html
 ###############################################################################
 
-{% for key,value in shorewall6_conf.items() %}
+{% for key,value in shorewall6_conf.items()|sort %}
 {{ key|upper }}={{ value }}
 {% endfor %}
