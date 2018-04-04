@@ -8,6 +8,6 @@
 #  Manpage also online at http://www.shorewall.net/manpages/shorewall.conf.html
 ###############################################################################
 
-{% for key,value in shorewall_conf.items() %}
+{% for key,value in shorewall_conf.items()|sort %}
 {{ key|upper }}={{ value }}
 {% endfor %}
