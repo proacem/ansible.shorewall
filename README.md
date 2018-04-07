@@ -8,8 +8,8 @@ Ansible role which installs and configures [Shorewall](http://shorewall.org/) an
 
 ## Installation
 
-```
-$ ansible-galaxy install arillso.shorewall
+```bash
+ansible-galaxy install arillso.shorewall
 ```
 
 ## Requirements
@@ -41,10 +41,9 @@ shorewall_tunnels | `type`, `zone`, `gateway`, `gateway_zone`
 shorewall_hosts | `zone`, `hosts`, `options`
 shorewall_params | `name`, `value`
 
-
 ### shorewall_package_state - Shorewall package state
 
-See the Ansible [package module](http://docs.ansible.com/ansible/package_module.html) information for more details. 
+See the Ansible [package module](http://docs.ansible.com/ansible/package_module.html) information for more details.
 
 It allows you to control whether Shorewall and dependencies should be either installed (*"present"*), installed / upgraded to their most recent version (*"latest"*) or should be removed (*"absent"*).
 
@@ -74,7 +73,7 @@ shorewall_conf:
 
 Define the interfaces on the system and optionally associate them with zones in the `/etc/shorewall/interfaces` file. See the Shorewall [interfaces man page](http://www.shorewall.net/manpages/shorewall-interfaces.html) for more details.
 
-#### Example
+#### Example - Interfaces
 
 ```yaml
 shorewall_interfaces:
@@ -85,7 +84,7 @@ shorewall_interfaces:
 
 Declare Shorewall zones in the `/etc/shorewall/zones` file. See the Shorewall [zones man page](http://www.shorewall.net/manpages/shorewall-zones.html) for more details.
 
-#### Example
+#### Example - Zone
 
 ```yaml
 shorewall_zones:
@@ -97,7 +96,7 @@ shorewall_zones:
 
 Define high-level policies for connections between zones in the `/etc/shorewall/policies`. See the Shorewall [policy man page](http://www.shorewall.net/manpages/shorewall-policy.html) for more details.
 
-#### Example
+#### Example - Policies
 
 ```yaml
 shorewall_policies:
@@ -146,7 +145,6 @@ shorewall_rules:
 
 ```
 
-
 ### shorewall_masq - Masquerade/SNAT
 
 Define Masquerade/SNAT in the `/etc/shorewall/masq` file. See the Shorewall [masq man page](http://shorewall.org/manpages/shorewall-masq.html) for more details.
@@ -155,7 +153,7 @@ Define Masquerade/SNAT in the `/etc/shorewall/masq` file. See the Shorewall [mas
 
 Define VPN connections with endpoints on the firewall in the `/etc/shorewall/tunnels` file.  See the Shorewall [tunnels man page](http://shorewall.net/manpages/shorewall-tunnels.html) for more details.
 
-#### Example
+#### Example - Tunnels
 
 ```yaml
 shorewall_tunnels:
@@ -165,11 +163,11 @@ shorewall_tunnels:
 ### shorewall_hosts - Hosts
 
 Define multiple zones accessed through a single interface in the `/etc/shorewall/hosts` file. See the Shorewall [hosts man page](http://shorewall.org/manpages/shorewall-hosts.html) for more details.
- 
+
 ### shorewall_params - Parameters
 
 Assign any shell variables that you need in the `/etc/shorewall/params` file. See the Shorewall [params man page](http://shorewall.org/manpages/shorewall-params.html) for more details.
- 
+
 ## Example Playbook
 
 ```yml
@@ -179,6 +177,10 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 ```
 
 ## Changelog
+
+### v1.0.6
+
+- Sort shorewall.conf items to ensure idempotence between runs (thank [S. Veyrié](https://github.com/turb))
 
 ### v1.0.5
 
@@ -205,11 +207,12 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 
 ## Author
 
-* [Simon Bärlocher](https://sbaerlocher.ch)
-* [Michael Green](http://myatus.com)
-* Farhad Shahbazi
-* Sascha Biberhofer
- 
+- [Simon Bärlocher](https://sbaerlocher.ch)
+- [S. Veyrié](https://github.com/turb)
+- [Michael Green](http://myatus.com)
+- Farhad Shahbazi
+- Sascha Biberhofer
+
 ## License
 
 This project is under the MIT License. See the [LICENSE](https://sbaerlo.ch/licence) file for the full license text.
@@ -217,4 +220,3 @@ This project is under the MIT License. See the [LICENSE](https://sbaerlo.ch/lice
 ## Copyright
 
 - Copyright (c) 2017 Simon Bärlocher
-
