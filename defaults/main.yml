@@ -23,6 +23,9 @@ shorewall6_interfaces:
 shorewall_masq: []
 shorewall6_masq: []
 
+shorewall_snat: []
+shorewall6_snat: []
+
 shorewall_hosts: []
 shorewall6_hosts: []
 
