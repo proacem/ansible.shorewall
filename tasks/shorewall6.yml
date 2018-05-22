@@ -41,6 +41,7 @@
         - shorewall6.conf
         - params
         - interfaces
+        - snat
         - masq
         - zones
         - policy

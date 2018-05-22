@@ -178,6 +178,10 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 
 ## Changelog
 
+### v1.0.7
+
+- Added support for shorewall SNAT configuration (thank [ErmakovDmitriy](https://github.com/ErmakovDmitriy))
+
 ### v1.0.6
 
 - Sort shorewall.conf items to ensure idempotence between runs (thank [S. Veyrié](https://github.com/turb))
@@ -208,6 +212,7 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 ## Author
 
 - [Simon Bärlocher](https://sbaerlocher.ch)
+- [ErmakovDmitriy](https://github.com/ErmakovDmitriy)
 - [S. Veyrié](https://github.com/turb)
 - [Michael Green](http://myatus.com)
 - Farhad Shahbazi
