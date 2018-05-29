@@ -69,6 +69,12 @@
       notify:
         - restart shorewall6
 
+    - name: Ensure Shorewall6 is enabled and started
+      service:
+        name: shorewall6
+        state: started
+        enabled: yes
+        use: service
   when: (shorewall6_package_state != "absent")
   tags:
     - configuration
