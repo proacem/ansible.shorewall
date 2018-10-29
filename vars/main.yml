@@ -57,7 +57,7 @@ shorewall_conf_base:
   #   D E F A U L T   A C T I O N S / M A C R O S
   ###############################################################################
   accept_default: "none"
-  drop_default: "Drop"
+  drop_default: "{{ shorewall_drop_default[shorewall_version] }}"
   nfqueue_default: "none"
   queue_default: "none"
   reject_default: "Reject"
