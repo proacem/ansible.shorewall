@@ -106,3 +106,6 @@ shorewall6_zones:
     type: firewall
   - zone: net
     type: ipv6
+
+shorewall_drop_default:
+  5.0.4: Drop

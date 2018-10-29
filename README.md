@@ -180,7 +180,7 @@ Assign any shell variables that you need in the `/etc/shorewall/params` file. Se
 
 ### v1.0.8
 
-- Enable and start service (`use: service` is set because of https://github.com/ansible/ansible/issues/22303)(thank [S. Veyrié](https://github.com/turb))
+- Enable and start service (`use: service` is set because of [https://github.com/ansible/ansible/issues/22303](https://github.com/ansible/ansible/issues/22303)) (thank [S. Veyrié](https://github.com/turb))
 
 ### v1.0.7
 

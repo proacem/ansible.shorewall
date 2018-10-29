@@ -22,6 +22,14 @@
   tags:
     - packages
 
+- name: get shorewall version
+  shell: shorewall version
+  register: register_shorewall_version
+
+- name: shorewall version
+  set_fact:
+    shorewall_version: "{{ register_shorewall_version.stdout }}"
+
 - include_tasks: shorewall.yml
   tags:
     - configuration
