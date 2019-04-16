@@ -4,21 +4,21 @@
 shorewall_conf: {}
 shorewall6_conf: {}
 
-shorewall_package_state: "present"
-shorewall6_package_state: "{{ shorewall_package_state }}"
+shorewall_package_state: 'present'
+shorewall6_package_state: '{{ shorewall_package_state }}'
 
 shorewall_startup: 1
-shorewall6_startup: "{{ shorewall_startup }}"
+shorewall6_startup: '{{ shorewall_startup }}'
 
 shorewall_interfaces:
   - zone: net
     interface: "{{ ansible_default_ipv4.get('interface', 'eth0') }}"
-    options: "tcpflags,logmartians,routefilter,sourceroute=0"
+    options: 'tcpflags,logmartians,routefilter,sourceroute=0'
 
 shorewall6_interfaces:
   - zone: net
     interface: "{{ ansible_default_ipv6.get('interface', 'eth0') }}"
-    options: "tcpflags,nosmurfs,sourceroute=0"
+    options: 'tcpflags,nosmurfs,sourceroute=0'
 
 shorewall_masq: []
 shorewall6_masq: []
@@ -36,7 +36,7 @@ shorewall_tunnels: []
 shorewall6_tunnels: []
 
 shorewall_policies:
-  - source: "$FW"
+  - source: '$FW'
     dest: all
     policy: ACCEPT
   - source: net
@@ -50,7 +50,7 @@ shorewall_policies:
     log_level: info
 
 shorewall6_policies:
-  - source: "$FW"
+  - source: '$FW'
     dest: all
     policy: ACCEPT
   - source: net
@@ -74,9 +74,20 @@ shorewall_rules:
     rules: []
   - section: NEW
     rules:
-      - { action: "Invalid(DROP)", source: net, dest: "$FW", proto: tcp }
-      - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: "{{ ansible_ssh_port | default('ssh', True) }}" }
-      - { action: ACCEPT, source: net, dest: "$FW", proto: icmp, dest_port: echo-request }
+      - action: 'Invalid(DROP)'
+        source: net
+        dest: '$FW'
+        proto: tcp
+      - action: ACCEPT
+        source: net
+        dest: '$FW'
+        proto: tcp
+        dest_port: "{{ ansible_ssh_port | default('ssh', True) }}"
+      - action: ACCEPT
+        source: net
+        dest: '$FW'
+        proto: icmp
+        dest_port: echo-request
 
 shorewall6_rules:
   - section: ALL
@@ -91,9 +102,20 @@ shorewall6_rules:
     rules: []
   - section: NEW
     rules:
-      - { action: "Invalid(DROP)", source: net, dest: "$FW", proto: tcp }
-      - { action: ACCEPT, source: net, dest: "$FW", proto: tcp, dest_port: "{{ ansible_ssh_port | default('ssh', True) }}" }
-      - { action: ACCEPT, source: net, dest: "$FW", proto: ipv6-icmp, dest_port: echo-request }
+      - action: 'Invalid(DROP)'
+        source: net
+        dest: '$FW'
+        proto: tcp
+      - action: ACCEPT
+        source: net
+        dest: '$FW'
+        proto: tcp
+        dest_port: "{{ ansible_ssh_port | default('ssh', True) }}"
+      - action: ACCEPT
+        source: net
+        dest: '$FW'
+        proto: ipv6-icmp
+        dest_port: echo-request
 
 shorewall_zones:
   - zone: fw
