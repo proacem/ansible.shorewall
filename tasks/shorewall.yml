@@ -3,7 +3,7 @@
 
 - name: Gather Shorewall configuration variables
   set_fact:
-    shorewall_conf: "{{ shorewall_conf_base|combine(shorewall_conf) }}"
+    shorewall_conf: '{{ shorewall_conf_base|combine(shorewall_conf) }}'
   tags:
     - configuration
     - packages
@@ -11,9 +11,9 @@
 - name: Install Shorewall and dependencies
   become: true
   package:
-    name: "{{ item }}"
-    state: "{{ shorewall_package_state }}"
-  with_items: "{{ shorewall_packages }}"
+    name: '{{ item }}'
+    state: '{{ shorewall_package_state }}'
+  with_items: '{{ shorewall_packages }}'
   notify:
     - enable shorewall
   tags:
@@ -32,8 +32,8 @@
     - name: Generate Shorewall configuration files
       become: true
       template:
-        dest: "/etc/shorewall/{{ item }}"
-        src: "shorewall/{{ item }}.j2"
+        dest: '/etc/shorewall/{{ item }}'
+        src: 'shorewall/{{ item }}.j2'
         owner: root
         group: root
         mode: 0640

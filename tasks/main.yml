@@ -2,12 +2,12 @@
 # tasks file for arillso.shorewall
 
 - name: Add OS specific variables
-  include_vars: "{{ item }}"
+  include_vars: '{{ item }}'
   with_first_found:
-    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-    - "vars/{{ ansible_distribution }}.yml"
-    - "vars/{{ ansible_os_family }}.yml"
-    - "vars/defaults.yml"
+    - 'vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml'
+    - 'vars/{{ ansible_distribution }}.yml'
+    - 'vars/{{ ansible_os_family }}.yml'
+    - 'vars/defaults.yml'
   tags:
     - configuration
     - packages
@@ -15,20 +15,21 @@
 - name: Remove incompatible firewall packages
   become: true
   package:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: absent
-  with_items: "{{ shorewall_incompatible_packages|default([]) }}"
+  with_items: '{{ shorewall_incompatible_packages|default([]) }}'
   when: (shorewall_package_state != "absent")
   tags:
     - packages
 
 - name: get shorewall version
-  shell: shorewall version
+  command: shorewall version
   register: register_shorewall_version
+  changed_when: False
 
 - name: shorewall version
   set_fact:
-    shorewall_version: "{{ register_shorewall_version.stdout }}"
+    shorewall_version: '{{ register_shorewall_version.stdout }}'
 
 - include_tasks: shorewall.yml
   tags:
