@@ -1,6 +1,8 @@
 ---
 # Defaults file for arillso.shorewall
 
+shorewall_default_ssh_port: 22
+
 shorewall_conf: {}
 shorewall6_conf: {}
 
@@ -82,7 +84,7 @@ shorewall_rules:
         source: net
         dest: '$FW'
         proto: tcp
-        dest_port: "{{ ansible_ssh_port | default('ssh', True) }}"
+        dest_port: "{{ shorewall_default_ssh_port | default('ssh', True) }}"
       - action: ACCEPT
         source: net
         dest: '$FW'
@@ -110,7 +112,7 @@ shorewall6_rules:
         source: net
         dest: '$FW'
         proto: tcp
-        dest_port: "{{ ansible_ssh_port | default('ssh', True) }}"
+        dest_port: "{{ shorewall_default_ssh_port | default('ssh', True) }}"
       - action: ACCEPT
         source: net
         dest: '$FW'
